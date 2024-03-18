@@ -19,8 +19,11 @@ customer_orders as (
 
 final as (
     select
-        to_binary({{ dbt_utils.generate_surrogate_key(['customers.customer_id']) }}) as customer_key,
-        hash(to_binary({{ dbt_utils.generate_surrogate_key(['customers.customer_id']) }})) as customer_key_hash,
+        {{ dbt_utils.generate_surrogate_key(['customers.customer_id']) }} as customer_key,
+        to_binary({{ dbt_utils.generate_surrogate_key(['customers.customer_id']) }}) as customer_key_bin,
+        -- Test out the Snowflake HASH() function
+        hash(to_binary({{ dbt_utils.generate_surrogate_key(['customers.customer_id']) }})) as customer_key_sfhash_test1,
+        hash({{ dbt_utils.generate_surrogate_key(['customers.customer_id']) }}) as customer_key_sfhash_test2,
         customers.customer_id,
         customers.first_name,
         customers.last_name,
