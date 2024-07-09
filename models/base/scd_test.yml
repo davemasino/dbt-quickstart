@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: scd_test
+    tests:
+      - dbt_utils.mutually_exclusive_ranges:
+          lower_bound_column: start_date
+          upper_bound_column: end_date
+          partition_by: customer_id
+          zero_length_range_allowed: true
+          gaps: not_allowed
