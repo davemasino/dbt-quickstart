@@ -3,3 +3,4 @@ target/
 dbt_packages/
 logs/
 .python-version
+package-lock.yml
